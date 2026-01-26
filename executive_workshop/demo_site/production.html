@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>생산현황 - SemiFab Portal</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/production.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- 상단 네비게이션 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">SemiFab</span>
+                <span class="logo-sub">Customer Portal</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">홈</a></li>
+                <li><a href="production.html" class="nav-link active">생산현황</a></li>
+                <li><a href="quality.html" class="nav-link">품질리포트</a></li>
+                <li><a href="delivery.html" class="nav-link">출하/납기</a></li>
+                <li><a href="quote.html" class="nav-link">견적요청</a></li>
+                <li><a href="documents.html" class="nav-link">기술문서</a></li>
+                <li><a href="contact.html" class="nav-link">문의하기</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <div class="notification">
+                    <span class="notification-icon">🔔</span>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-menu">
+                    <span class="user-company">Samsung Electronics</span>
+                    <span class="user-avatar">S</span>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <!-- 페이지 헤더 -->
+        <section class="page-header">
+            <div class="page-title">
+                <h1>📊 생산현황</h1>
+                <p>진행 중인 모든 Lot의 실시간 상태를 확인하세요</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn btn-secondary">📥 엑셀 다운로드</button>
+                <button class="btn btn-primary">🔄 새로고침</button>
+            </div>
+        </section>
+
+        <!-- 필터 영역 -->
+        <section class="filter-section card">
+            <div class="filter-row">
+                <div class="filter-item">
+                    <label>상태</label>
+                    <select class="form-select">
+                        <option value="">전체</option>
+                        <option value="fab">FAB 진행</option>
+                        <option value="test">테스트</option>
+                        <option value="done">완료</option>
+                        <option value="ship">출하</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>제품</label>
+                    <select class="form-select">
+                        <option value="">전체</option>
+                        <option value="5nm">5nm AP</option>
+                        <option value="7nm">7nm GPU</option>
+                        <option value="3nm">3nm Test</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>기간</label>
+                    <select class="form-select">
+                        <option value="">전체</option>
+                        <option value="7">최근 7일</option>
+                        <option value="30" selected>최근 30일</option>
+                        <option value="90">최근 90일</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>검색</label>
+                    <input type="text" class="form-input" placeholder="Lot ID 또는 제품명">
+                </div>
+                <button class="btn btn-primary filter-btn">검색</button>
+            </div>
+        </section>
+
+        <!-- 요약 통계 -->
+        <section class="summary-stats">
+            <div class="summary-card">
+                <div class="summary-icon blue">📦</div>
+                <div class="summary-info">
+                    <span class="summary-value">127</span>
+                    <span class="summary-label">전체 Lot</span>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon cyan">⚡</div>
+                <div class="summary-info">
+                    <span class="summary-value">65</span>
+                    <span class="summary-label">FAB 진행</span>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon orange">🔬</div>
+                <div class="summary-info">
+                    <span class="summary-value">28</span>
+                    <span class="summary-label">테스트</span>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon purple">📦</div>
+                <div class="summary-info">
+                    <span class="summary-value">22</span>
+                    <span class="summary-label">패키징</span>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon green">✅</div>
+                <div class="summary-info">
+                    <span class="summary-value">12</span>
+                    <span class="summary-label">출하 대기</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lot 상세 테이블 -->
+        <section class="card table-section">
+            <div class="card-header">
+                <h3>전체 Lot 목록</h3>
+                <span class="record-count">총 127건</span>
+            </div>
+            <div class="card-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Lot ID</th>
+                            <th>제품</th>
+                            <th>공정</th>
+                            <th>수량</th>
+                            <th>현재 공정</th>
+                            <th>진행률</th>
+                            <th>상태</th>
+                            <th>시작일</th>
+                            <th>예상 완료</th>
+                            <th>액션</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="#" class="lot-link" onclick="showLotDetail('LOT-2024-0892')">LOT-2024-0892</a></td>
+                            <td>5nm AP Chip</td>
+                            <td>N5P</td>
+                            <td>25 wafers</td>
+                            <td>Lithography</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 67%"></div>
+                                    <span>67%</span>
+                                </div>
+                            </td>
+                            <td><span class="status-badge fab">FAB</span></td>
+                            <td>01/15</td>
+                            <td>01/28</td>
+                            <td><button class="btn-icon" title="상세보기">👁</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="lot-link" onclick="showLotDetail('LOT-2024-0891')">LOT-2024-0891</a></td>
+                            <td>7nm GPU</td>
+                            <td>N7</td>
+                            <td>30 wafers</td>
+                            <td>Final Test</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 92%"></div>
+                                    <span>92%</span>
+                                </div>
+                            </td>
+                            <td><span class="status-badge test">TEST</span></td>
+                            <td>01/10</td>
+                            <td>01/25</td>
+                            <td><button class="btn-icon" title="상세보기">👁</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="lot-link">LOT-2024-0890</a></td>
+                            <td>5nm Modem</td>
+                            <td>N5</td>
+                            <td>20 wafers</td>
+                            <td>Etching</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 45%"></div>
+                                    <span>45%</span>
+                                </div>
+                            </td>
+                            <td><span class="status-badge fab">FAB</span></td>
+                            <td>01/18</td>
+                            <td>02/01</td>
+                            <td><button class="btn-icon" title="상세보기">👁</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="lot-link">LOT-2024-0889</a></td>
+                            <td>3nm Test Chip</td>
+                            <td>N3E</td>
+                            <td>15 wafers</td>
+                            <td>Deposition</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 30%"></div>
+                                    <span>30%</span>
+                                </div>
+                            </td>
+                            <td><span class="status-badge fab">FAB</span></td>
+                            <td>01/20</td>
+                            <td>02/10</td>
+                            <td><button class="btn-icon" title="상세보기">👁</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="lot-link">LOT-2024-0888</a></td>
+                            <td>5nm Modem</td>
+                            <td>N5</td>
+                            <td>20 wafers</td>
+                            <td>Packaging</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress done" style="width: 100%"></div>
+                                    <span>100%</span>
+                                </div>
+                            </td>
+                            <td><span class="status-badge done">DONE</span></td>
+                            <td>01/05</td>
+                            <td>01/24</td>
+                            <td><button class="btn-icon" title="상세보기">👁</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="lot-link">LOT-2024-0887</a></td>
+                            <td>7nm AP</td>
+                            <td>N7P</td>
+                            <td>25 wafers</td>
+                            <td>Wafer Test</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 85%"></div>
+                                    <span>85%</span>
+                                </div>
+                            </td>
+                            <td><span class="status-badge test">TEST</span></td>
+                            <td>01/08</td>
+                            <td>01/26</td>
+                            <td><button class="btn-icon" title="상세보기">👁</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="lot-link">LOT-2024-0886</a></td>
+                            <td>5nm WiFi</td>
+                            <td>N5</td>
+                            <td>18 wafers</td>
+                            <td>CMP</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 55%"></div>
+                                    <span>55%</span>
+                                </div>
+                            </td>
+                            <td><span class="status-badge fab">FAB</span></td>
+                            <td>01/12</td>
+                            <td>01/30</td>
+                            <td><button class="btn-icon" title="상세보기">👁</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="lot-link">LOT-2024-0885</a></td>
+                            <td>3nm Test Chip</td>
+                            <td>N3E</td>
+                            <td>15 wafers</td>
+                            <td>Shipping</td>
+                            <td>
+                                <div class="progress-bar">
+                                    <div class="progress done" style="width: 100%"></div>
+                                    <span>100%</span>
+                                </div>
+                            </td>
+                            <td><span class="status-badge ship">SHIP</span></td>
+                            <td>01/02</td>
+                            <td>01/23</td>
+                            <td><button class="btn-icon" title="상세보기">👁</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <div class="pagination">
+                    <button class="page-btn">‹</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">5</button>
+                    <button class="page-btn">›</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lot 상세 모달 -->
+        <div id="lotModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📦 LOT-2024-0892 상세 정보</h2>
+                    <button class="modal-close" onclick="closeModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- 기본 정보 -->
+                    <div class="detail-section">
+                        <h3>기본 정보</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">제품명</span>
+                                <span class="detail-value">5nm AP Chip</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">공정</span>
+                                <span class="detail-value">N5P (5nm Plus)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">수량</span>
+                                <span class="detail-value">25 Wafers</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">우선순위</span>
+                                <span class="detail-value priority-high">긴급</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 공정 진행 상황 -->
+                    <div class="detail-section">
+                        <h3>공정 진행 상황</h3>
+                        <div class="process-timeline">
+                            <div class="process-step completed">
+                                <div class="step-marker">✓</div>
+                                <div class="step-info">
+                                    <span class="step-name">Wafer Prep</span>
+                                    <span class="step-date">01/15 완료</span>
+                                </div>
+                            </div>
+                            <div class="process-step completed">
+                                <div class="step-marker">✓</div>
+                                <div class="step-info">
+                                    <span class="step-name">Deposition</span>
+                                    <span class="step-date">01/18 완료</span>
+                                </div>
+                            </div>
+                            <div class="process-step active">
+                                <div class="step-marker">●</div>
+                                <div class="step-info">
+                                    <span class="step-name">Lithography</span>
+                                    <span class="step-date">진행 중 (67%)</span>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-marker">4</div>
+                                <div class="step-info">
+                                    <span class="step-name">Etching</span>
+                                    <span class="step-date">예정</span>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-marker">5</div>
+                                <div class="step-info">
+                                    <span class="step-name">Testing</span>
+                                    <span class="step-date">예정</span>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-marker">6</div>
+                                <div class="step-info">
+                                    <span class="step-name">Packaging</span>
+                                    <span class="step-date">예정</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 일정 정보 -->
+                    <div class="detail-section">
+                        <h3>일정 정보</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">시작일</span>
+                                <span class="detail-value">2024-01-15</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">예상 완료일</span>
+                                <span class="detail-value">2024-01-28</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Cycle Time</span>
+                                <span class="detail-value">13일</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">상태</span>
+                                <span class="detail-value on-schedule">정상 진행</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeModal()">닫기</button>
+                    <button class="btn btn-primary">📄 상세 리포트 다운로드</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <span>© 2024 SemiFab Semiconductor. All rights reserved.</span>
+                <span class="separator">|</span>
+                <span>고객지원: support@semifab.com</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">이용약관</a>
+                <a href="#">개인정보처리방침</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        // 모달 열기
+        function showLotDetail(lotId) {
+            document.getElementById('lotModal').classList.add('show');
+        }
+
+        // 모달 닫기
+        function closeModal() {
+            document.getElementById('lotModal').classList.remove('show');
+        }
+
+        // 모달 외부 클릭 시 닫기
+        document.getElementById('lotModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

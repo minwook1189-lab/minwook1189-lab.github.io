@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 - SemiFab Portal</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+    <!-- 상단 네비게이션 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">SemiFab</span>
+                <span class="logo-sub">Customer Portal</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">홈</a></li>
+                <li><a href="production.html" class="nav-link">생산현황</a></li>
+                <li><a href="quality.html" class="nav-link">품질리포트</a></li>
+                <li><a href="delivery.html" class="nav-link">출하/납기</a></li>
+                <li><a href="quote.html" class="nav-link">견적요청</a></li>
+                <li><a href="documents.html" class="nav-link">기술문서</a></li>
+                <li><a href="contact.html" class="nav-link active">문의하기</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <div class="notification">
+                    <span class="notification-icon">🔔</span>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-menu">
+                    <span class="user-company">Samsung Electronics</span>
+                    <span class="user-avatar">S</span>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <div class="contact-container">
+            <!-- 왼쪽: 문의 폼 -->
+            <div class="contact-form-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>💬 1:1 문의하기</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="contactForm" onsubmit="submitForm(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">문의 유형 <span class="required">*</span></label>
+                                    <select class="form-select" required>
+                                        <option value="">선택하세요</option>
+                                        <option value="production">생산 관련</option>
+                                        <option value="quality">품질 관련</option>
+                                        <option value="delivery">납기/출하 관련</option>
+                                        <option value="quote">견적 관련</option>
+                                        <option value="technical">기술 문의</option>
+                                        <option value="other">기타</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">우선순위</label>
+                                    <select class="form-select">
+                                        <option value="normal">일반</option>
+                                        <option value="high">긴급</option>
+                                        <option value="critical">매우 긴급</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">관련 Lot ID (선택)</label>
+                                <input type="text" class="form-input" placeholder="예: LOT-2024-0892">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">제목 <span class="required">*</span></label>
+                                <input type="text" class="form-input" placeholder="문의 제목을 입력하세요" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">문의 내용 <span class="required">*</span></label>
+                                <textarea class="form-textarea" placeholder="문의 내용을 상세히 입력해주세요" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">첨부 파일</label>
+                                <div class="file-upload">
+                                    <input type="file" id="fileInput" multiple hidden>
+                                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">
+                                        📎 파일 선택
+                                    </button>
+                                    <span class="file-hint">최대 10MB, PDF/Excel/이미지 파일</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">회신 받을 이메일</label>
+                                <input type="email" class="form-input" value="contact@samsung.com">
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span>담당자 전화 연락 희망</span>
+                                </label>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary">임시 저장</button>
+                                <button type="submit" class="btn btn-primary">문의 등록</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 오른쪽: 연락처 정보 & FAQ -->
+            <div class="contact-info-section">
+                <!-- 담당자 정보 -->
+                <div class="card info-card">
+                    <div class="card-header">
+                        <h3>👤 담당자 정보</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="manager-info">
+                            <div class="manager-avatar">김</div>
+                            <div class="manager-details">
+                                <h4>김영수 차장</h4>
+                                <p>Customer Success Manager</p>
+                            </div>
+                        </div>
+                        <ul class="contact-list">
+                            <li>
+                                <span class="icon">📧</span>
+                                <span>ys.kim@semifab.com</span>
+                            </li>
+                            <li>
+                                <span class="icon">📞</span>
+                                <span>+82-2-1234-5678</span>
+                            </li>
+                            <li>
+                                <span class="icon">💬</span>
+                                <span>카카오톡: semifab_support</span>
+                            </li>
+                        </ul>
+                        <p class="response-time">평균 응답 시간: <strong>2시간 이내</strong></p>
+                    </div>
+                </div>
+
+                <!-- 긴급 연락처 -->
+                <div class="card urgent-card">
+                    <div class="card-body">
+                        <h4>🚨 긴급 상황 시</h4>
+                        <p class="urgent-number">+82-2-1234-9999</p>
+                        <p class="urgent-desc">24시간 운영</p>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>❓ 자주 묻는 질문</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <span>Lot 진행 상태는 어디서 확인하나요?</span>
+                                    <span class="faq-icon">+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    상단 메뉴의 '생산현황'에서 모든 Lot의 실시간 진행 상태를 확인하실 수 있습니다.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <span>납기 변경은 어떻게 요청하나요?</span>
+                                    <span class="faq-icon">+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    위 문의 폼에서 '납기/출하 관련'을 선택하시거나, 담당자에게 직접 연락주시면 됩니다.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question" onclick="toggleFaq(this)">
+                                    <span>품질 리포트는 언제 발행되나요?</span>
+                                    <span class="faq-icon">+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    Lot 완료 후 영업일 기준 2일 이내에 품질 리포트가 발행됩니다. '품질리포트' 메뉴에서 다운로드 가능합니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 성공 모달 -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">✅</div>
+            <h2>문의가 등록되었습니다</h2>
+            <p>접수번호: <strong>INQ-2024-0156</strong></p>
+            <p>담당자가 확인 후 빠른 시일 내 회신드리겠습니다.</p>
+            <button class="btn btn-primary" onclick="closeSuccessModal()">확인</button>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <span>© 2024 SemiFab Semiconductor. All rights reserved.</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">이용약관</a>
+                <a href="#">개인정보처리방침</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        // 폼 제출
+        function submitForm(event) {
+            event.preventDefault();
+            document.getElementById('successModal').classList.add('show');
+        }
+
+        // 성공 모달 닫기
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('show');
+            document.getElementById('contactForm').reset();
+        }
+
+        // FAQ 토글
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

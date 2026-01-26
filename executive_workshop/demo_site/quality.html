@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>품질리포트 - SemiFab Portal</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/quality.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- 상단 네비게이션 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">SemiFab</span>
+                <span class="logo-sub">Customer Portal</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">홈</a></li>
+                <li><a href="production.html" class="nav-link">생산현황</a></li>
+                <li><a href="quality.html" class="nav-link active">품질리포트</a></li>
+                <li><a href="delivery.html" class="nav-link">출하/납기</a></li>
+                <li><a href="quote.html" class="nav-link">견적요청</a></li>
+                <li><a href="documents.html" class="nav-link">기술문서</a></li>
+                <li><a href="contact.html" class="nav-link">문의하기</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <div class="notification">
+                    <span class="notification-icon">🔔</span>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="user-menu">
+                    <span class="user-company">Samsung Electronics</span>
+                    <span class="user-avatar">S</span>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <!-- 페이지 헤더 -->
+        <section class="page-header">
+            <div class="page-title">
+                <h1>✅ 품질 리포트</h1>
+                <p>수율, 불량 분석 및 품질 트렌드를 확인하세요</p>
+            </div>
+            <div class="page-actions">
+                <select class="period-select">
+                    <option>최근 30일</option>
+                    <option>최근 90일</option>
+                    <option>2024년 1월</option>
+                    <option>2023년 4분기</option>
+                </select>
+                <button class="btn btn-secondary">📥 리포트 다운로드</button>
+            </div>
+        </section>
+
+        <!-- 핵심 품질 지표 -->
+        <section class="quality-metrics">
+            <div class="metric-card highlight">
+                <div class="metric-header">
+                    <span class="metric-icon">📈</span>
+                    <span class="metric-title">종합 수율</span>
+                </div>
+                <div class="metric-value large">94.7%</div>
+                <div class="metric-change positive">
+                    <span>▲ 1.2%</span> vs 전월
+                </div>
+                <div class="metric-bar">
+                    <div class="bar-fill" style="width: 94.7%"></div>
+                    <div class="bar-target" style="left: 93%"></div>
+                </div>
+                <div class="metric-target">목표: 93%</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-icon">🔍</span>
+                    <span class="metric-title">Defect Density</span>
+                </div>
+                <div class="metric-value">0.12</div>
+                <div class="metric-unit">defects/cm²</div>
+                <div class="metric-change positive">
+                    <span>▼ 0.03</span> 개선
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-icon">🎯</span>
+                    <span class="metric-title">Spec 충족률</span>
+                </div>
+                <div class="metric-value">98.5%</div>
+                <div class="metric-unit">within spec</div>
+                <div class="metric-change positive">
+                    <span>▲ 0.5%</span> vs 전월
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-icon">⚡</span>
+                    <span class="metric-title">First Pass Yield</span>
+                </div>
+                <div class="metric-value">91.2%</div>
+                <div class="metric-unit">FPY</div>
+                <div class="metric-change neutral">
+                    <span>→ 0.1%</span> 유지
+                </div>
+            </div>
+        </section>
+
+        <!-- 차트 영역 -->
+        <section class="charts-section">
+            <div class="card chart-card">
+                <div class="card-header">
+                    <h3>📊 수율 트렌드</h3>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="dot blue"></span> 실제 수율</span>
+                        <span class="legend-item"><span class="dot green"></span> 목표</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="yieldTrendChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card chart-card">
+                <div class="card-header">
+                    <h3>🔬 공정별 수율</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="processYieldChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 불량 분석 -->
+        <section class="defect-analysis">
+            <div class="card">
+                <div class="card-header">
+                    <h3>⚠️ 불량 유형 분석</h3>
+                    <span class="period-badge">최근 30일</span>
+                </div>
+                <div class="card-body">
+                    <div class="defect-grid">
+                        <div class="defect-chart">
+                            <canvas id="defectTypeChart"></canvas>
+                        </div>
+                        <div class="defect-table">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>불량 유형</th>
+                                        <th>발생 건수</th>
+                                        <th>비율</th>
+                                        <th>트렌드</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Particle</td>
+                                        <td>45</td>
+                                        <td>32%</td>
+                                        <td class="trend down">▼ 12%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pattern Defect</td>
+                                        <td>38</td>
+                                        <td>27%</td>
+                                        <td class="trend up">▲ 5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scratch</td>
+                                        <td>25</td>
+                                        <td>18%</td>
+                                        <td class="trend down">▼ 8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Metal Residue</td>
+                                        <td>18</td>
+                                        <td>13%</td>
+                                        <td class="trend stable">→</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Others</td>
+                                        <td>14</td>
+                                        <td>10%</td>
+                                        <td class="trend down">▼ 3%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lot별 품질 현황 -->
+        <section class="card">
+            <div class="card-header">
+                <h3>📦 최근 Lot 품질 현황</h3>
+                <a href="production.html" class="view-all">전체 보기 →</a>
+            </div>
+            <div class="card-body" style="padding: 0;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Lot ID</th>
+                            <th>제품</th>
+                            <th>수율</th>
+                            <th>Defect Density</th>
+                            <th>Spec 충족</th>
+                            <th>품질 등급</th>
+                            <th>완료일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="lot-link">LOT-2024-0888</td>
+                            <td>5nm Modem</td>
+                            <td><span class="yield-value high">96.2%</span></td>
+                            <td>0.08</td>
+                            <td>100%</td>
+                            <td><span class="grade-badge grade-a">A</span></td>
+                            <td>01/24</td>
+                        </tr>
+                        <tr>
+                            <td class="lot-link">LOT-2024-0885</td>
+                            <td>3nm Test Chip</td>
+                            <td><span class="yield-value high">95.8%</span></td>
+                            <td>0.10</td>
+                            <td>100%</td>
+                            <td><span class="grade-badge grade-a">A</span></td>
+                            <td>01/23</td>
+                        </tr>
+                        <tr>
+                            <td class="lot-link">LOT-2024-0882</td>
+                            <td>7nm GPU</td>
+                            <td><span class="yield-value medium">93.5%</span></td>
+                            <td>0.15</td>
+                            <td>98%</td>
+                            <td><span class="grade-badge grade-b">B</span></td>
+                            <td>01/20</td>
+                        </tr>
+                        <tr>
+                            <td class="lot-link">LOT-2024-0880</td>
+                            <td>5nm AP</td>
+                            <td><span class="yield-value high">94.8%</span></td>
+                            <td>0.11</td>
+                            <td>100%</td>
+                            <td><span class="grade-badge grade-a">A</span></td>
+                            <td>01/18</td>
+                        </tr>
+                        <tr>
+                            <td class="lot-link">LOT-2024-0878</td>
+                            <td>7nm AP</td>
+                            <td><span class="yield-value low">89.2%</span></td>
+                            <td>0.22</td>
+                            <td>95%</td>
+                            <td><span class="grade-badge grade-c">C</span></td>
+                            <td>01/15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 품질 개선 액션 -->
+        <section class="card">
+            <div class="card-header">
+                <h3>🔧 품질 개선 활동</h3>
+            </div>
+            <div class="card-body">
+                <div class="action-list">
+                    <div class="action-item">
+                        <div class="action-status completed">완료</div>
+                        <div class="action-content">
+                            <h4>Lithography 장비 캘리브레이션</h4>
+                            <p>Pattern Defect 감소를 위한 정기 캘리브레이션 완료</p>
+                            <span class="action-date">2024-01-20</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-status in-progress">진행중</div>
+                        <div class="action-content">
+                            <h4>Cleanroom 파티클 모니터링 강화</h4>
+                            <p>Class 10 → Class 1 환경 업그레이드 진행 중</p>
+                            <span class="action-date">예정: 2024-02-15</span>
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <div class="action-status planned">예정</div>
+                        <div class="action-content">
+                            <h4>신규 Inspection 장비 도입</h4>
+                            <p>AI 기반 자동 결함 분류 시스템</p>
+                            <span class="action-date">예정: 2024-03-01</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <span>© 2024 SemiFab Semiconductor. All rights reserved.</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">이용약관</a>
+                <a href="#">개인정보처리방침</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/quality.js"></script>
+</body>
+</html>
