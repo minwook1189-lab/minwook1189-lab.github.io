@@ -1,0 +1,347 @@
+/* ============================================
+   품질리포트 페이지 스타일
+   ============================================ */
+
+/* 페이지 헤더 */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 5px;
+}
+
+.page-title p {
+    color: var(--gray-500);
+    font-size: 14px;
+}
+
+.page-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* 핵심 품질 지표 */
+.quality-metrics {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.metric-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.metric-card.highlight {
+    background: linear-gradient(135deg, #0066cc 0%, #004999 100%);
+    color: white;
+}
+
+.metric-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.metric-icon {
+    font-size: 18px;
+}
+
+.metric-title {
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.metric-card:not(.highlight) .metric-title {
+    color: var(--gray-600);
+}
+
+.metric-value {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.metric-value.large {
+    font-size: 42px;
+}
+
+.metric-card:not(.highlight) .metric-value {
+    color: var(--gray-900);
+}
+
+.metric-unit {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 2px;
+}
+
+.metric-change {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.metric-change.positive span {
+    color: var(--success);
+}
+
+.metric-card.highlight .metric-change.positive span {
+    color: #86efac;
+}
+
+.metric-change.negative span {
+    color: var(--danger);
+}
+
+.metric-change.neutral span {
+    color: var(--gray-500);
+}
+
+.metric-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    margin-top: 15px;
+    position: relative;
+}
+
+.bar-fill {
+    height: 100%;
+    background: white;
+    border-radius: 4px;
+}
+
+.bar-target {
+    position: absolute;
+    top: -3px;
+    width: 2px;
+    height: 14px;
+    background: #fbbf24;
+}
+
+.metric-target {
+    font-size: 11px;
+    opacity: 0.8;
+    margin-top: 8px;
+}
+
+/* 차트 섹션 */
+.charts-section {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.chart-card .card-body {
+    height: 280px;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--gray-600);
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.blue { background: var(--primary); }
+.dot.green { background: var(--success); }
+
+/* 불량 분석 */
+.defect-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.defect-chart {
+    height: 250px;
+}
+
+.defect-table .data-table {
+    font-size: 14px;
+}
+
+.trend {
+    font-weight: 600;
+}
+
+.trend.up { color: var(--danger); }
+.trend.down { color: var(--success); }
+.trend.stable { color: var(--gray-500); }
+
+.period-badge {
+    font-size: 12px;
+    padding: 4px 10px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    color: var(--gray-600);
+}
+
+/* 수율 값 */
+.yield-value {
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.yield-value.high {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.yield-value.medium {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.yield-value.low {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* 품질 등급 뱃지 */
+.grade-badge {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.grade-a {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.grade-b {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.grade-c {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.grade-d {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* 품질 개선 액션 */
+.action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.action-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: var(--gray-50);
+    border-radius: 8px;
+}
+
+.action-status {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    height: fit-content;
+}
+
+.action-status.completed {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.action-status.in-progress {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.action-status.planned {
+    background: var(--gray-200);
+    color: var(--gray-600);
+}
+
+.action-content h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 5px;
+}
+
+.action-content p {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-bottom: 5px;
+}
+
+.action-date {
+    font-size: 12px;
+    color: var(--gray-500);
+}
+
+/* 반응형 */
+@media (max-width: 1200px) {
+    .quality-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+
+    .defect-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .defect-chart {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .quality-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
